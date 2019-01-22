@@ -38,6 +38,7 @@ namespace WebApiExample.Repositories
             //    .Include(p =>p.Phone)
             //    .ToList();
             return _context.Person.FromSql("Select * From Person").ToList();
+        
 
             //SELECT Person.Name FROM Person
             //return _context.Person.FromSql XXXXX
@@ -50,13 +51,14 @@ namespace WebApiExample.Repositories
             //FROM PERSON INNER JOIN PHONE ON PERSON. ID = PHONE.PERSONID
             // WHERE PERSON.ID={id};
             return _context.Person
+                .AsNoTracking()
                 .Include(p => p.Phone)
                 .FirstOrDefault(p => p.Id == id);
         }
 
         public Person Update(Person person)
         {
-            //var updatedPerson = Read(Person);
+            //var updatedPerson = Read(Person); TÄMÄ ASIA ON PAREMPI TEHDÄ SERVISE TASOLLA!!!!!!!!!!!!!!
             //if (updatedPerson == null)
             //    throw new Exception("Person not found");
             _context.Person.Update(person);

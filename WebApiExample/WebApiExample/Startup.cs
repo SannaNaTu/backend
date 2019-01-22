@@ -12,6 +12,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using WebApiExample.Models;
 using WebApiExample.Repositories;
+using WebApiExample.Services;
 
 namespace WebApiExample
 {
@@ -27,6 +28,7 @@ namespace WebApiExample
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IPersonService, PersonService>();
             services.AddScoped<IPersonRepository, PersonRepository>();
             services.AddDbContext<Task1Context>(opt => opt.UseSqlServer(Configuration.GetConnectionString("LocalTask1Context")));
             
@@ -48,5 +50,6 @@ namespace WebApiExample
 
             app.UseMvc();
         }
+        
     }
 }
