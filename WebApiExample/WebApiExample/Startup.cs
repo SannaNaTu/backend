@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using WebApiExample.Models;
+using WebApiExample.Repositories;
 
 namespace WebApiExample
 {
@@ -26,13 +27,16 @@ namespace WebApiExample
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<Tehtävä1Context>(opt =>
-            {
-                opt.UseSqlServer(Configuration.GetConnectionString("LocalTehtävä1Context"));
-            }
-            );
+            services.AddScoped<IPersonRepository, PersonRepository>();
+            services.AddDbContext<Task1Context>(opt => opt.UseSqlServer(Configuration.GetConnectionString("LocalTask1Context")));
+            
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            //ignore json serialization
+            services.AddMvc().AddJsonOptions(json =>
+                json.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
         }
+       
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

@@ -4,13 +4,13 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace WebApiExample.Models
 {
-    public partial class Tehtävä1Context : DbContext
+    public partial class Task1Context : DbContext
     {
-        public Tehtävä1Context()
+        public Task1Context()
         {
         }
 
-        public Tehtävä1Context(DbContextOptions<Tehtävä1Context> options)
+        public Task1Context(DbContextOptions<Task1Context> options)
             : base(options)
         {
         }
